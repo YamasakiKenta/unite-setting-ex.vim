@@ -1,6 +1,8 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
+" [2013-06-18 00:14]
+
 function! unite#kinds#kind_settings_ex_bool#define()
 	return s:kind_settings_ex_bool
 endfunction
@@ -25,6 +27,8 @@ function! s:kind_settings_ex_bool.action_table.a_toggle.func(candidates)
 	endfor
 	call unite#force_redraw()
 endfunction 
+
+call unite#define_kind(s:kind_settings_ex_bool)
 
 if exists('s:save_cpo')
 	let &cpo = s:save_cpo
