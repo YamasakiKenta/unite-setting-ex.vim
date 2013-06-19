@@ -25,9 +25,8 @@ function! s:settings_ex_list_select.gather_candidates(args, context) "{{{
 
 	let dict_name  = a:context.source__dict_name
 	let valname_ex = a:context.source__valname_ex
-	let const_     = a:context.source__const
 
-	let datas  = unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex)
+	let datas = unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex)
 
 	let type = unite_setting_ex#dict(dict_name)[valname_ex].__type
 
@@ -51,7 +50,7 @@ function! s:settings_ex_list_select.gather_candidates(args, context) "{{{
 					\ 'kind'               : unite_kind,
 					\ 'action__dict_name'  : dict_name,
 					\ 'action__valname_ex' : valname_ex,
-					\ 'action__const_flg'  : const_,
+					\ 'action__const_flg'  : data.const,
 					\ 'action__valname'    : dict_name."['".valname_ex."']['__default']['items']['".num_."']",
 					\ 'action__num'        : num_,
 					\ 'action__new'        : '',

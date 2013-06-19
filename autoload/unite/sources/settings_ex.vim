@@ -107,7 +107,6 @@ function! s:settings_ex.gather_candidates(args, context) "{{{
 				\ 'action__valname'    : printf('%s[\"%s\"][\"__default\"]', dict_name, v:val),
 				\ 'action__valname_ex' : v:val,
 				\ 'action__dict_name'  : dict_name,
-				\ 'action__const_flg'  : unite_setting_ex#get_const_flg(dict_name, v:val),
 				\ }")
 endfunction
 "}}}

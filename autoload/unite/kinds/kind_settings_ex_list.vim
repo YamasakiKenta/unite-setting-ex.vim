@@ -21,7 +21,7 @@ function! s:kind_settings_ex_list.action_table.a_toggle.func(...)
 endfunction
 
 let s:kind_settings_ex_list.action_table.edit = {
-			\ 'description' : 'İ’è•ÒW',
+			\ 'description' : 'İ’è•ÒW ( const ) ',
 			\ 'is_quit'     : 0,
 			\ }"
 function! s:kind_settings_ex_list.action_table.edit.func(candidate) "{{{

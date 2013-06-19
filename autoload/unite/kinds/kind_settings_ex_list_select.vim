@@ -104,7 +104,7 @@ endfunction
 
 let s:kind_settings_ex_list_select.action_table.delete = {
 			\ 'is_selectable' : 1,
-			\ 'description'   : 'delete ( kind_settings_ex_list_select.vim ) ',
+			\ 'description'   : 'delete ( kind_settings_ex_list_select.vim ) (const)',
 			\ 'is_quit'        : 0,
 			\ }
 function! s:kind_settings_ex_list_select.action_table.delete.func(candidates) "{{{

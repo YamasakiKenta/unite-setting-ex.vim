@@ -41,8 +41,9 @@ function! unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex) "{{
 	let const_flgs = s:get_const_flgs(datas)
 
 	let rtns = map(copy(datas.items), "{
-				\ 'str' : ' '.s:get_str(v:val).' ',
-				\ 'flg' : 0,
+				\ 'str'   : ' '.s:get_str(v:val).' ',
+				\ 'flg'   : 0,
+				\ 'const' : 0,
 				\ }")
 
 	let tmp_strs = copy(datas.items)
@@ -52,15 +53,19 @@ function! unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex) "{{
 	for num_ in filter(copy(const_flgs), 'v:val >= 0')
 		unlet tmp_var
 		let tmp_var = get(datas.items, num_, '*ERROR*')
-		let tmp_strs[num_] = '+'.s:get_str(tmp_var).'+'
-		let rtns[num_].str = '+'.s:get_str(tmp_var).'+'
-		let rtns[num_].flg = 1
+		let rtns[num_].str   = '+'.s:get_str(tmp_var).'+'
+		let rtns[num_].flg   = 0
+		let rtns[num_].const = 1
 	endfor
 
 	for num_ in filter(copy(num_flgs), 'v:val >= 0')
 		unlet tmp_var
-		let tmp_var = get(tmp_strs, num_, '*ERROR*')
-		let rtns[num_].str = '<'.s:get_str(tmp_var).'>'
+		let tmp_var = get(datas.items, num_, '*ERROR*')
+		if rtns[num_].const == 1
+			let rtns[num_].str = '*'.s:get_str(tmp_var).'*'
+		else
+			let rtns[num_].str = '<'.s:get_str(tmp_var).'>'
+		endif
 		let rtns[num_].flg = 1
 	endfor
 
