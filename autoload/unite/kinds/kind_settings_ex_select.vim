@@ -8,7 +8,7 @@ let s:kind_settings_ex_select = {
 			\ 'name'           : 'kind_settings_ex_select',
 			\ 'default_action' : 'a_toggle',
 			\ 'action_table'   : {},
-			\ 'parents': ['kind_settings_ex_common', 'kind_settings_common'],
+			\ 'parents': ['kind_settings_ex_common'],
 			\ }
 let s:kind_settings_ex_select.action_table.a_toggle = {
 			\ 'description' : '‘I‘ð',
@@ -30,5 +30,11 @@ function! s:kind_settings_ex_select.action_table.edit.func(...)
 	return call('unite_setting_ex#kind#unite_list_select', a:000)
 endfunction
 
-let &cpo = s:save_cpo
-unlet s:save_cpo
+call unite#define_kind(s:kind_settings_ex_select)
+
+if exists('s:save_cpo')
+	let &cpo = s:save_cpo
+	unlet s:save_cpo
+else
+	set cpo&
+endif

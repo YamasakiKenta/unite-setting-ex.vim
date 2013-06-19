@@ -8,8 +8,9 @@ let s:kind_settings_ex_common = {
 			\ 'name'           : 'kind_settings_ex_common',
 			\ 'default_action' : 'a_toggle',
 			\ 'action_table'   : {},
-			\ 'parents': ['kind_settings_common'],
 			\ }
+			"\ 'parents': ['kind_settings_common'],
+			"\ 'parents': ['kind_settings_common'],
 let s:kind_settings_ex_common.action_table.yank = {
 			\ 'description'   : 'yank',
 			\ 'is_quit'       : 0,
