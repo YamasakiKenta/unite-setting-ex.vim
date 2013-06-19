@@ -3,20 +3,20 @@ set cpo&vim
 
 function! s:delete(dict_name, valname_ex, delete_nums) "{{{
 
-	" 並び替え
 	let delete_nums = copy(a:delete_nums)
-	call sort(delete_nums, 'unite_setting_ex2#sort_lager')
+	call reverse(sort(delete_nums))
 
 	" 番号の取得
 	let datas = unite_setting_ex#dict(a:dict_name)[a:valname_ex].__default
 
 	" 選択番号の削除
-	let nums = get(datas, 'nums')
+	let nums = get(datas, 'nums', [datas.num])
 
 	" 削除 ( 大きい数字から削除 ) 
 	for delete_num in delete_nums
 		" 番号の更新
 		if exists('datas.items[delete_num]')
+			echo delete_num
 			unlet datas.items[delete_num]
 		endif
 
@@ -26,7 +26,11 @@ function! s:delete(dict_name, valname_ex, delete_nums) "{{{
 	endfor
 
 	" 選択番号の設定
-	let datas.nums = nums
+	if exists('datas.nums')
+		let datas.nums = nums
+	else
+		let datas.num = nums[0]
+	endif
 
 	" 設定
 	call unite_setting_ex#kind#set(a:dict_name, a:valname_ex, datas)
@@ -46,8 +50,8 @@ let s:kind_settings_ex_list_select = {
 			\ }
 let s:kind_settings_ex_list_select.action_table.a_toggles = {
 			\ 'is_selectable' : 1,
-			\ 'description' : '設定の切替 ( 複数選択可能 )',
-			\ 'is_quit'        : 0,
+			\ 'description'   : 'select item(s)',
+			\ 'is_quit'       : 0,
 			\ }
 function! s:kind_settings_ex_list_select.action_table.a_toggles.func(candidates) "{{{
 	let candidates =  a:candidates
@@ -76,8 +80,8 @@ endfunction
 "}}}
 
 let s:kind_settings_ex_list_select.action_table.a_toggle = {
-			\ 'description' : '設定の切替',
-			\ 'is_quit'        : 0,
+			\ 'description' : 'select item',
+			\ 'is_quit'     : 0,
 			\ }
 function! s:kind_settings_ex_list_select.action_table.a_toggle.func(candidates) "{{{
 	let dict_name    = a:candidates.action__dict_name
@@ -104,7 +108,7 @@ endfunction
 
 let s:kind_settings_ex_list_select.action_table.delete = {
 			\ 'is_selectable' : 1,
-			\ 'description'   : 'delete ( kind_settings_ex_list_select.vim ) (const)',
+			\ 'description'   : 'delete (const)',
 			\ 'is_quit'        : 0,
 			\ }
 function! s:kind_settings_ex_list_select.action_table.delete.func(candidates) "{{{
@@ -112,21 +116,27 @@ function! s:kind_settings_ex_list_select.action_table.delete.func(candidates) "{
 	" 初期化
 	let valname_ex = a:candidates[0].action__valname_ex
 	let dict_name  = a:candidates[0].action__dict_name
-	let const_flg  = a:candidates[0].action__const_flg  
 
-	if const_flg == 1
-		unite#print_message("con't edit")
-	else
+	let tmp_nums = map(copy(a:candidates), 'v:val.action__num')
 
-		let nums       = map(copy(a:candidates), 'v:val.action__num')
+	let consts = map(copy(a:candidates), 'v:val.action__const_flg')
 
-		" 削除する
-		call s:delete(dict_name, valname_ex, nums)
+	let nums = copy(tmp_nums)
 
-		call unite#force_redraw()
-	endif
+	for const in consts
+		call filter(nums, 'v:val != const')
+	endfor
+
+	" 削除する
+	call s:delete(dict_name, valname_ex, nums)
+
+	echo nums
+	call input("")
+	call unite#force_redraw()
 endfunction
 "}}}
+"
+call unite#define_kind(s:kind_settings_ex_list_select)
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

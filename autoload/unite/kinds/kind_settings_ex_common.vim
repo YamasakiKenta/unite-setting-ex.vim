@@ -6,13 +6,11 @@ function! unite#kinds#kind_settings_ex_common#define()
 endfunction
 let s:kind_settings_ex_common = { 
 			\ 'name'           : 'kind_settings_ex_common',
-			\ 'default_action' : 'a_toggle',
+			\ 'default_action' : 'yank',
 			\ 'action_table'   : {},
 			\ }
-			"\ 'parents': ['kind_settings_common'],
-			"\ 'parents': ['kind_settings_common'],
 let s:kind_settings_ex_common.action_table.yank = {
-			\ 'description'   : 'yank',
+			\ 'description'   : '',
 			\ 'is_quit'       : 0,
 			\ 'is_selectable' : 1,
 			\ }
@@ -30,6 +28,41 @@ function! s:kind_settings_ex_common.action_table.yank.func(candidates) "{{{
 	echo @"
 endfunction
 "}}}
+"
+let s:kind_settings_ex_common.action_table.edit = {
+			\ 'description'   : 'edit ( const ) ',
+			\ 'is_quit'       : 0,
+			\ }
+function! s:kind_settings_ex_common.action_table.edit.func(candidate)  "{{{
+	let valname    = a:candidate.action__valname
 
-let &cpo = s:save_cpo
-unlet s:save_cpo
+	if get(a:candidate, 'action__const_flg', 0) == 1
+		call unite#print_error("con't edit")
+		return
+	endif
+
+	if exists(valname)
+		exe 'let str = string('.valname.')'
+	els
+		let str = ''
+	endif
+
+	let str = input(valname.' : ', str)
+
+	if str !=# ""
+		if exists(valname)
+			exe 'unlet '.valname
+		endif
+		exe 'let '.valname.' = '.str
+	endif
+
+	call unite#force_redraw()
+endfunction
+"}}}
+
+if exists('s:save_cpo')
+	let &cpo = s:save_cpo
+	unlet s:save_cpo
+else
+	set cpo&
+endif
