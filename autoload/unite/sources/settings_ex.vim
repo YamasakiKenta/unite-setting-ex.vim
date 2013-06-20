@@ -32,27 +32,11 @@ function! s:get_source_word_sub(dict_name, valname_ex, str) "{{{
 				\ )
 endfunction
 "}}}
+
 function! s:get_source_word_from_strs(dict_name, valname_ex) "{{{
 	let datas = unite_setting_ex#source#get_strs_on_off_new(a:dict_name, a:valname_ex)
 	let strs  = map(datas, 'v:val.str')
 	return s:get_source_word_sub( a:dict_name, a:valname_ex, join(strs))
-endfunction
-"}}}
-function! s:get_source_word(dict_name, valname_ex) "{{{
-
-	let type = unite_setting_ex#dict(a:dict_name)[a:valname_ex].__type
-
-	if type == 'bool'
-		let rtn = s:get_source_word_from_bool(a:dict_name, a:valname_ex)
-	elseif type == 'list_ex' || type == 'select' 
-		let rtn = s:get_source_word_from_strs(a:dict_name, a:valname_ex)
-	elseif type == 'var'|| type == 'list'
-		let rtn = s:get_source_word_from_val(a:dict_name, a:valname_ex)
-	else
-		let rtn = '"'.a:valname_ex.'"'
-	endif
-
-	return unite_setting_ex#util#printf("%10s %s", type, rtn)
 endfunction
 "}}}
 function! s:get_source_word_from_bool(dict_name, valname_ex) "{{{
@@ -73,6 +57,24 @@ function! s:get_source_word_from_val(dict_name, valname_ex) "{{{
 endfunction
 "}}}
 
+function! s:get_source_word(dict_name, valname_ex) "{{{
+
+	let type = unite_setting_ex#dict(a:dict_name)[a:valname_ex].__type
+
+	if type == 'bool'
+		let rtn = s:get_source_word_from_bool(a:dict_name, a:valname_ex)
+	elseif type == 'list_ex' || type == 'select' 
+		let rtn = s:get_source_word_from_strs(a:dict_name, a:valname_ex)
+	elseif type == 'var'|| type == 'list'
+		let rtn = s:get_source_word_from_val(a:dict_name, a:valname_ex)
+	else
+		let rtn = '"'.a:valname_ex.'"'
+	endif
+
+	return unite_setting_ex#util#printf("%10s %s", type, rtn)
+endfunction
+"}}}
+
 let s:settings_ex = {
 			\ 'name'        : 'settings_ex',
 			\ 'description' : '',
@@ -87,7 +89,7 @@ function! s:settings_ex.hooks.on_init(args, context) "{{{
 	if exists('a:args[0]')
 		let a:context.source__dict_name = a:args[0]
 	else
-		let a:context.source__dict_name = unite_setting_ex_3#init()
+		let a:context.source__dict_name = unite_setting_ex#data#init()
 	endif
 endfunction
 "}}}
