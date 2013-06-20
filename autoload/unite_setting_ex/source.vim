@@ -37,6 +37,7 @@ function! unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex) "{{
 	" @return [{'str' : '', 'flg' : ''}]
 	" ********************************************************************************
 	let datas    = copy(unite_setting_ex#dict(a:dict_name)[a:valname_ex].__default)
+	let type     = unite_setting_ex#dict(a:dict_name)[a:valname_ex].__type
 	let num_flgs = s:get_num_flgs(datas)
 	let const_flgs = s:get_const_flgs(datas)
 
@@ -48,23 +49,22 @@ function! unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex) "{{
 
 	let tmp_strs = copy(datas.items)
 
-	let tmp_var = ''
-	" echo const_flgs
 	for num_ in filter(copy(const_flgs), 'v:val >= 0')
-		unlet tmp_var
-		let tmp_var = get(datas.items, num_, '*ERROR*')
-		let rtns[num_].str   = '+'.s:get_str(tmp_var).'+'
+		let rtns[num_].str   = '+'.s:get_str(get(datas.items, num_, '*ERROR*')).'+'
 		let rtns[num_].flg   = 0
 		let rtns[num_].const = 1
 	endfor
 
 	for num_ in filter(copy(num_flgs), 'v:val >= 0')
-		unlet tmp_var
-		let tmp_var = get(datas.items, num_, '*ERROR*')
+		let tmp_str = s:get_str(get(datas.items, num_, '*ERROR*'))
 		if rtns[num_].const == 1
-			let rtns[num_].str = '*'.s:get_str(tmp_var).'*'
+			let rtns[num_].str = '*'.tmp_str.'*'
 		else
-			let rtns[num_].str = '<'.s:get_str(tmp_var).'>'
+			if type == 'select'
+				let rtns[num_].str = '<'.tmp_str.'>'
+			else
+				let rtns[num_].str = '('.tmp_str.')'
+			endif
 		endif
 		let rtns[num_].flg = 1
 	endfor

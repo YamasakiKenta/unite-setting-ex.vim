@@ -54,16 +54,9 @@ endfunction
 "
 function! unite_setting_ex#kind#unite_list_select(candidate) "{{{
 
-	let const_ = unite_setting_ex#get_const_flg(
-				\ a:candidate.action__dict_name,
-				\ a:candidate.action__valname_ex, 
-				\ )
-
 	let tmp_d = {
 				\ 'dict_name'  : a:candidate.action__dict_name,
 				\ 'valname_ex' : a:candidate.action__valname_ex,
-				\ 'kind'       : '__default',
-				\ 'const_'     : const_,
 				\ }
 
 	call unite#start_temporary([['settings_ex_list_select', tmp_d]])

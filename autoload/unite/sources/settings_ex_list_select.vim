@@ -17,7 +17,6 @@ function! s:settings_ex_list_select.hooks.on_init(args, context) "{{{
 	if len(a:args) > 0
 		let a:context.source__dict_name    = a:args[0].dict_name
 		let a:context.source__valname_ex   = a:args[0].valname_ex
-		let a:context.source__const        = get(a:args[0], 'const_', 0)
 	endif
 endfunction
 "}}}
