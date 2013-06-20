@@ -113,25 +113,19 @@ let s:kind_settings_ex_list_select.action_table.delete = {
 			\ }
 function! s:kind_settings_ex_list_select.action_table.delete.func(candidates) "{{{
 
-	" ‰Šú‰»
+	" init
 	let valname_ex = a:candidates[0].action__valname_ex
 	let dict_name  = a:candidates[0].action__dict_name
 
-	let tmp_nums = map(copy(a:candidates), 'v:val.action__num')
+	let candidates = deepcopy( av:candidates ) 
+	call filter( candidates, 'v:val.action__const')
+	call filter( candidates, 'v:val.action__select')
 
-	let consts = map(copy(a:candidates), 'v:val.action__const_flg')
+	let nums = map(copy(a:candidates), 'v:val.action__num')
 
-	let nums = copy(tmp_nums)
-
-	for const in consts
-		call filter(nums, 'v:val != const')
-	endfor
-
-	" íœ‚·‚é
+	" delete
 	call s:delete(dict_name, valname_ex, nums)
 
-	echo nums
-	call input("")
 	call unite#force_redraw()
 endfunction
 "}}}

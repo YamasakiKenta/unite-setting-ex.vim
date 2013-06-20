@@ -39,7 +39,11 @@ function! s:settings_ex_list_select.gather_candidates(args, context) "{{{
 		" ”ñ‘I‘ğ—p‚Ì€–Ú
 		let num_ = -1
 		let unite_kind = 'settings_ex_list_selects'
-		call insert(datas, { 'str' : ' NULL ', 'flg' : 0, 'const' : 1 })
+		call insert(datas, {
+					\ 'str' : '+NULL+',
+					\ 'flg' : 0,
+					\ 'const' : 1,
+					\ })
 	endif
 
 	let rtns = []
@@ -50,7 +54,8 @@ function! s:settings_ex_list_select.gather_candidates(args, context) "{{{
 					\ 'kind'               : unite_kind,
 					\ 'action__dict_name'  : dict_name,
 					\ 'action__valname_ex' : valname_ex,
-					\ 'action__const_flg'  : data.const,
+					\ 'action__const'      : data.const,
+					\ 'action__select'     : data.flg,
 					\ 'action__valname'    : dict_name."['".valname_ex."']['__default']['items']['".num_."']",
 					\ 'action__num'        : num_,
 					\ 'action__new'        : '',
