@@ -11,17 +11,6 @@ function! s:get_str(val) "{{{
 	return str
 endfunction
 "}}}
-function! s:get_num_flgs(datas) "{{{
-	if exists('a:datas.nums')
-		let num_flgs  = a:datas.nums
-	elseif exists('a:datas.num')
-		let num_flgs  = [a:datas.num]
-	else
-		let num_flgs = []
-	endif
-	return num_flgs
-endfunction
-"}}}
 
 function! unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex) "{{{
 	" ********************************************************************************
@@ -29,7 +18,7 @@ function! unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex) "{{
 	" ********************************************************************************
 	let datas    = copy(unite_setting_ex#dict(a:dict_name)[a:valname_ex].__default)
 	let type     = unite_setting_ex#dict(a:dict_name)[a:valname_ex].__type
-	let num_flgs = s:get_num_flgs(datas)
+	let num_flgs = get(datas, 'nums', [])
 	let const_flgs = get(datas, 'consts', [])
 
 	let rtns = map(copy(datas.items), "{
