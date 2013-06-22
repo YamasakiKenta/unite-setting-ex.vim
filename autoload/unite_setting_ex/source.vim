@@ -49,11 +49,17 @@ function! unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex) "{{
 
 	let tmp_strs = copy(datas.items)
 
-	for num_ in filter(copy(const_flgs), 'v:val >= 0')
-		let rtns[num_].str   = '+'.s:get_str(get(datas.items, num_, '*ERROR*')).'+'
-		let rtns[num_].flg   = 0
-		let rtns[num_].const = 1
-	endfor
+	if get(const_flgs, 0, 0) < 0
+		let nums = range(len(rtns))
+	else
+		let nums = filter(copy(const_flgs), 'v:val >= 0')
+	endif
+
+		for num_ in nums
+			let rtns[num_].str   = '+'.s:get_str(get(datas.items, num_, '*ERROR*')).'+'
+			let rtns[num_].flg   = 0
+			let rtns[num_].const = 1
+		endfor
 
 	for num_ in filter(copy(num_flgs), 'v:val >= 0')
 		let tmp_str = s:get_str(get(datas.items, num_, '*ERROR*'))

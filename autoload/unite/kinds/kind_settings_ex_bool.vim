@@ -14,17 +14,14 @@ let s:kind_settings_ex_bool = {
 			\ 'parents'        : ['kind_settings_ex_common'],
 			\ }
 let s:kind_settings_ex_bool.action_table.a_toggle = {
-			\ 'is_selectable' : 1,
 			\ 'description'   : 'ê›íËÇÃêÿë÷',
 			\ 'is_quit'       : 0,
 			\ }
-function! s:kind_settings_ex_bool.action_table.a_toggle.func(candidates)
-	for candidate in a:candidates
-		call unite_setting_ex#kind#set_next(
-					\ candidate.action__dict_name,
-					\ candidate.action__valname_ex,
-					\ )
-	endfor
+function! s:kind_settings_ex_bool.action_table.a_toggle.func(candidate)
+	call unite_setting_ex#kind#set_next(
+				\ a:candidate.action__dict_name,
+				\ a:candidate.action__valname_ex,
+				\ )
 	call unite#force_redraw()
 endfunction 
 

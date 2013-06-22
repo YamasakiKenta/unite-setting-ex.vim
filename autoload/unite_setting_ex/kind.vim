@@ -51,17 +51,6 @@ function! unite_setting_ex#kind#set(dict_name, valname_ex, val) "{{{
 
 endfunction
 "}}}
-"
-function! unite_setting_ex#kind#unite_list_select(candidate) "{{{
-
-	let tmp_d = {
-				\ 'dict_name'  : a:candidate.action__dict_name,
-				\ 'valname_ex' : a:candidate.action__valname_ex,
-				\ }
-
-	call unite#start_temporary([['settings_ex_list_select', tmp_d]])
-endfunction
-"}}}
 
 if exists('s:save_cpo')
 	let &cpo = s:save_cpo

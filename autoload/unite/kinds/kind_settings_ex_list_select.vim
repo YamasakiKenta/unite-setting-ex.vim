@@ -117,11 +117,13 @@ function! s:kind_settings_ex_list_select.action_table.delete.func(candidates) "{
 	let valname_ex = a:candidates[0].action__valname_ex
 	let dict_name  = a:candidates[0].action__dict_name
 
-	let candidates = deepcopy( av:candidates ) 
-	call filter( candidates, 'v:val.action__const')
-	call filter( candidates, 'v:val.action__select')
+	let candidates = deepcopy( a:candidates ) 
+	call filter( candidates, 'v:val.action__const == 0')
+	call filter( candidates, 'v:val.action__select == 0')
 
-	let nums = map(copy(a:candidates), 'v:val.action__num')
+	let nums = map(copy(candidates), 'v:val.action__num')
+
+	echo nums
 
 	" delete
 	call s:delete(dict_name, valname_ex, nums)
