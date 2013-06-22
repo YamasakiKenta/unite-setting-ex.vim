@@ -12,12 +12,12 @@ function! s:get_type(val) "{{{
 	elseif type([]) == val_type_
 		let type_ = 'list'
 	elseif type({}) == val_type_
-		if type(get(a:val, 'num', [])) == type(0)
-			let type_ = 'select'
-		elseif type(get(a:val, 'nums', 0)) == type([])
+		let type_ = 'list' 
+		if type(get(a:val, 'nums', 0)) == type([])
 			let type_ = 'list_ex'
-		else
-			let type_ = 'list' 
+			if len(a:val.nums) == 1
+				let type_ = 'select'
+			endif
 		endif
 	else
 		let type_ = 'var'
@@ -102,7 +102,7 @@ function! unite_setting_ex#data#get(dict_name, valname_ex) "{{{
 	if type_ == 'list_ex' 
 		let rtns = s:get_lists(val)
 	elseif type_ == 'select'
-		let rtns = val.items[val.num]
+		let rtns = val.items[val.nums[0]]
 	elseif type_ == 'bool'
 		try
 			let rtns = val > 0 ? 1 : 0

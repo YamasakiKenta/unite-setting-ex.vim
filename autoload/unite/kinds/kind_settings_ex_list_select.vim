@@ -10,27 +10,21 @@ function! s:delete(dict_name, valname_ex, delete_nums) "{{{
 	let datas = unite_setting_ex#dict(a:dict_name)[a:valname_ex].__default
 
 	" 選択番号の削除
-	let nums = get(datas, 'nums', [datas.num])
+	let nums = datas.nums
 
 	" 削除 ( 大きい数字から削除 ) 
 	for delete_num in delete_nums
 		" 番号の更新
 		if exists('datas.items[delete_num]')
-			echo delete_num
 			unlet datas.items[delete_num]
 		endif
 
-		" 削除
+		" 数字の再定義
 		call filter(nums, "v:val != delete_num")
 		call map(nums, "v:val - (v:val > delete_num? 1: 0)")
 	endfor
 
-	" 選択番号の設定
-	if exists('datas.nums')
-		let datas.nums = nums
-	else
-		let datas.num = nums[0]
-	endif
+	let datas.nums = nums
 
 	" 設定
 	call unite_setting_ex#kind#set(a:dict_name, a:valname_ex, datas)

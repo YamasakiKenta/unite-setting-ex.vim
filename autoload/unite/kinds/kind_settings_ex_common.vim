@@ -36,11 +36,6 @@ let s:kind_settings_ex_common.action_table.edit = {
 function! s:kind_settings_ex_common.action_table.edit.func(candidate)  "{{{
 	let valname    = a:candidate.action__valname
 
-	if get(a:candidate, 'action__const', 0) == 1
-		call unite#print_error("con't edit")
-		return
-	endif
-
 	if exists(valname)
 		exe 'let str = string('.valname.')'
 	els
