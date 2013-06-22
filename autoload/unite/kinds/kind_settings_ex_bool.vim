@@ -9,15 +9,15 @@ endfunction
 
 let s:kind_settings_ex_bool = { 
 			\ 'name'           : 'kind_settings_ex_bool',
-			\ 'default_action' : 'a_toggle',
+			\ 'default_action' : 'toggle',
 			\ 'action_table'   : {},
 			\ 'parents'        : ['kind_settings_ex_common'],
 			\ }
-let s:kind_settings_ex_bool.action_table.a_toggle = {
+let s:kind_settings_ex_bool.action_table.toggle = {
 			\ 'description'   : 'ê›íËÇÃêÿë÷',
 			\ 'is_quit'       : 0,
 			\ }
-function! s:kind_settings_ex_bool.action_table.a_toggle.func(candidate)
+function! s:kind_settings_ex_bool.action_table.toggle.func(candidate)
 	call unite_setting_ex#kind#set_next(
 				\ a:candidate.action__dict_name,
 				\ a:candidate.action__valname_ex,
