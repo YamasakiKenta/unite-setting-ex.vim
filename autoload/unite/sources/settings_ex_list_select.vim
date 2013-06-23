@@ -25,7 +25,7 @@ function! s:settings_ex_list_select.gather_candidates(args, context) "{{{
 	let dict_name  = a:context.source__dict_name
 	let valname_ex = a:context.source__valname_ex
 
-	let datas = unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex)
+	let datas = unite_setting_ex#source#get_on_off(dict_name, valname_ex)
 
 	let type = unite_setting_ex#dict(dict_name)[valname_ex].__type
 

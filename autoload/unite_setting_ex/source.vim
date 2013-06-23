@@ -12,7 +12,7 @@ function! s:get_str(val) "{{{
 endfunction
 "}}}
 
-function! unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex) "{{{
+function! unite_setting_ex#source#get_on_off(dict_name, valname_ex) "{{{
 	" ********************************************************************************
 	" @return [{'str' : '', 'flg' : ''}]
 	" ********************************************************************************
@@ -35,20 +35,18 @@ function! unite_setting_ex#source#get_strs_on_off_new(dict_name, valname_ex) "{{
 		let nums = filter(copy(const_flgs), 'v:val >= 0')
 	endif
 
-		for num_ in nums
-			let rtns[num_].str   = '+'.s:get_str(get(datas.items, num_, '*ERROR*')).'+'
-			let rtns[num_].const = 1
-		endfor
+	for num_ in nums
+		let rtns[num_].const = 1
 
-		for num_ in filter(copy(num_flgs), 'v:val >= 0')
-			let tmp_str = s:get_str(get(datas.items, num_, '*ERROR*'))
-			if type == 'select'
-				let rtns[num_].str = '|'.tmp_str.'>'
-			else
-				let rtns[num_].str = '<'.tmp_str.'>'
-			endif
-			let rtns[num_].flg = 1
-		endfor
+		let rtns[num_].str   = '+'.s:get_str(get(datas.items, num_, '*ERROR*')).'+'
+	endfor
+
+	for num_ in filter(copy(num_flgs), 'v:val >= 0')
+		let rtns[num_].flg = 1
+
+		let tmp_str = s:get_str(get(datas.items, num_, '*ERROR*'))
+		let rtns[num_].str = '<'.tmp_str.'>'
+	endfor
 
 	return rtns
 endfunction

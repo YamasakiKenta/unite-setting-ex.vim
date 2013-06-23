@@ -25,16 +25,24 @@ function! s:get_source_word_sub(dict_name, valname_ex, str) "{{{
 		let description = tmp_d[a:valname_ex].__description
 	endif
 
-	return unite_setting_ex#util#printf(' %-100s %50s - %s', 
-				\ description,
-				\ a:valname_ex,
-				\ a:str,
-				\ )
+	if 0
+		return unite_setting_ex#util#printf(' %-100s %50s - %s', 
+					\ description,
+					\ a:valname_ex,
+					\ a:str,
+					\ )
+	else
+		return unite_setting_ex#util#printf('%40s - %s', 
+					\ a:valname_ex,
+					\ a:str,
+					\ )
+		return 
+endif
 endfunction
 "}}}
 
 function! s:get_source_word_from_strs(dict_name, valname_ex) "{{{
-	let datas = unite_setting_ex#source#get_strs_on_off_new(a:dict_name, a:valname_ex)
+	let datas = unite_setting_ex#source#get_on_off(a:dict_name, a:valname_ex)
 	let strs  = map(datas, 'v:val.str')
 	return s:get_source_word_sub( a:dict_name, a:valname_ex, join(strs))
 endfunction
