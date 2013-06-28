@@ -43,8 +43,7 @@ endfunction
 function! s:add_with_type(dict_name, valname_ex, description, val, type) "{{{
 	" ********************************************************************************
 	" @param[in]     a:dict_name   : 'unite_pf_data'
-	" @param[in]     a:description : ''
-	" @param[in]     a:description : { 'num' : 0, 'items' : [1,2,3] }
+	" @param[in]     val           : { 'num' : 0, 'items' : [1,2,3] }
 	" @param[in]     a:type        : 'select'
 	" @return       
 	" ********************************************************************************
@@ -60,7 +59,6 @@ function! s:add_with_type(dict_name, valname_ex, description, val, type) "{{{
 	" çXêV
 	let tmp_d[a:valname_ex] = get(tmp_d, a:valname_ex, {})
 	let tmp_d[a:valname_ex].__type        = a:type
-	let tmp_d[a:valname_ex].__description = a:description
 	let tmp_d[a:valname_ex].__default     = a:val
 
 	" àÍî‘ç≈èâ
@@ -84,9 +82,9 @@ function! s:add_with_type(dict_name, valname_ex, description, val, type) "{{{
 endfunction
 "}}}
 
-function! unite_setting_ex#data#add(dict_name, valname_ex, description, val) "{{{
+function! unite_setting_ex#data#add(dict_name, valname_ex, val) "{{{
 	let type_ = s:get_type(a:val)
-	return s:add_with_type(a:dict_name, a:valname_ex, a:description, a:val, type_) 
+	return s:add_with_type(a:dict_name, a:valname_ex, a:val, type_) 
 endfunction
 "}}}
 function! unite_setting_ex#data#get(dict_name, valname_ex) "{{{

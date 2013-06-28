@@ -20,24 +20,12 @@ endfunction
 
 function! s:get_source_word_sub(dict_name, valname_ex, str) "{{{
 	let tmp_d = unite_setting_ex#dict(a:dict_name)
-	let description = ''
-	if exists('tmp_d[a:valname_ex].__description')
-		let description = tmp_d[a:valname_ex].__description
-	endif
 
-	if 0
-		return unite_setting_ex#util#printf(' %-100s %50s - %s', 
-					\ description,
-					\ a:valname_ex,
-					\ a:str,
-					\ )
-	else
-		return unite_setting_ex#util#printf('%40s - %s', 
-					\ a:valname_ex,
-					\ a:str,
-					\ )
-		return 
-endif
+	return unite_setting_ex#util#printf('%40s - %s', 
+				\ a:valname_ex,
+				\ a:str,
+				\ )
+	return 
 endfunction
 "}}}
 
