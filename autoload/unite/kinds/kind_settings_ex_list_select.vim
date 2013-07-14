@@ -117,7 +117,7 @@ function! s:kind_settings_ex_list_select.action_table.delete.func(candidates) "{
 
 	let nums = map(copy(candidates), 'v:val.action__num')
 
-	echo nums
+	echom string(nums)
 
 	" delete
 	call s:delete(dict_name, valname_ex, nums)

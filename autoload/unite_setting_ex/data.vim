@@ -35,12 +35,12 @@ function! s:get_lists(datas) "{{{
 		return rtns
 
 	catch
-		echo 's:get_lists -> ERROR'
+		echom 's:get_lists -> ERROR'
 		return []
 	endtry
 endfunction
 "}}}
-function! s:add_with_type(dict_name, valname_ex, description, val, type) "{{{
+function! s:add_with_type(dict_name, valname_ex, val, type) "{{{
 	" ********************************************************************************
 	" @param[in]     a:dict_name   : 'unite_pf_data'
 	" @param[in]     val           : { 'num' : 0, 'items' : [1,2,3] }
@@ -67,7 +67,7 @@ function! s:add_with_type(dict_name, valname_ex, description, val, type) "{{{
 	" –¢“o˜^‚È‚ç
 	if match(tmp_d.__order, '^'.a:valname_ex.'$') < 0
 		call add(tmp_d.__order, a:valname_ex)
-		echo tmp_d.__order
+		echom string(tmp_d.__order)
 	endif
 
 	" •Û‘¶
@@ -125,7 +125,6 @@ function! unite_setting_ex#data#init(...) "{{{
 
 	if !exists(dict_name)
 		let file_name = get(a:, 2, expand('~/.'.matchstr(dict_name, 'g:\zs.*')))
-		echo 'unite_setting_ex#data#init -> init'
 		let tmp = {
 					\ "__order"  : [],
 					\ "__file"   : file_name,
@@ -148,7 +147,7 @@ function! unite_setting_ex#data#load(...) "{{{
 
 	
 	if !filereadable(file_)
-		echo 'unite_setting_ex#data#load -> not find '.file_
+		echom 'unite_setting_ex#data#load -> not find '.file_
 		return
 	endif
 

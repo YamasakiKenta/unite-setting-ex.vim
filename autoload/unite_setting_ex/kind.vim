@@ -23,8 +23,7 @@ function! unite_setting_ex#kind#set_next(dict_name, valname_ex) "{{{
 		let val = unite_setting_ex#dict(a:dict_name)[a:valname_ex].__default
 		call map(val.nums, 's:next_items(v:val, val.items)')
 	else
-		echo 'non supoert....'
-		call input("")
+		echom 'non supoert....'
 	endif
 
 	call unite_setting_ex#kind#set(a:dict_name, a:valname_ex, val )

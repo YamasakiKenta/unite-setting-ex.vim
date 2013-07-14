@@ -25,7 +25,7 @@ function! s:kind_settings_ex_common.action_table.yank.func(candidates) "{{{
 
 	endfor
 	let @* = @"
-	echo @"
+	echom string(@")
 endfunction
 "}}}
 "

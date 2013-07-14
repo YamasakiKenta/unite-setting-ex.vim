@@ -41,8 +41,7 @@ function! s:get_source_word_from_bool(dict_name, valname_ex) "{{{
 					\ '<TRUE>  FALSE ' :
 					\ ' TRUE  <FALSE>'
 	catch
-		echo a:valname_ex
-		call input("")
+		echom string(a:valname_ex)
 	endtry
 	return s:get_source_word_sub( a:dict_name, a:valname_ex, str)
 endfunction
@@ -92,7 +91,7 @@ endfunction
 function! s:settings_ex.hooks.on_close(args, context) "{{{
 	let tmp_d = unite_setting_ex#dict(a:context.source__dict_name)
 	call unite_setting_ex#util#save(tmp_d.__file, tmp_d)
-	echo 'save -> '.tmp_d.__file
+	echom 'save -> '.tmp_d.__file
 endfunction
 "}}}
 function! s:settings_ex.gather_candidates(args, context) "{{{
