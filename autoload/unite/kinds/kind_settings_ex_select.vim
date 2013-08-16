@@ -11,7 +11,7 @@ let s:kind_settings_ex_select = {
 			\ 'parents': ['kind_settings_ex_common'],
 			\ }
 let s:kind_settings_ex_select.action_table.a_toggle = {
-			\ 'description' : '‘I‘ğ',
+			\ 'description' : 'é¸æŠ',
 			\ 'is_quit'     : 0,
 			\ }
 function! s:kind_settings_ex_select.action_table.a_toggle.func(candidate) "{{{

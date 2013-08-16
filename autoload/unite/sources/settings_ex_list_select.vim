@@ -6,7 +6,7 @@ function! unite#sources#settings_ex_list_select#define()
 endfunction
 let s:settings_ex_list_select = {
 			\ 'name'        : 'settings_ex_list_select',
-			\ 'description' : '•¡”‘I‘ğ',
+			\ 'description' : 'è¤‡æ•°é¸æŠ',
 			\ 'syntax'      : 'uniteSource__settings',
 			\ 'hooks'       : {},
 			\ }
@@ -35,7 +35,7 @@ function! s:settings_ex_list_select.gather_candidates(args, context) "{{{
 		let unite_kind = 'settings_ex_list_select'
 	else
 		" list
-		" ”ñ‘I‘ğ—p‚Ì€–Ú
+		" éé¸æŠç”¨ã®é …ç›®
 		let num_ = -1
 		let unite_kind = 'settings_ex_list_selects'
 		call insert(datas, {
@@ -47,7 +47,7 @@ function! s:settings_ex_list_select.gather_candidates(args, context) "{{{
 
 	let rtns = []
 	for data in datas
-		" •Ï‰»‚·‚é‚Ì‚ÍAwork action__num, action__valname
+		" å¤‰åŒ–ã™ã‚‹ã®ã¯ã€work action__num, action__valname
 		let rtns += [{
 					\ 'word'               : num_.' - '.data.str,
 					\ 'kind'               : unite_kind,

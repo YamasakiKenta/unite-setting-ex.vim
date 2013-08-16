@@ -56,24 +56,24 @@ function! s:add_with_type(dict_name, valname_ex, val, type) "{{{
 		let tmp_d = {}
 	endif
 
-	" XV
+	" æ›´æ–°
 	let tmp_d[a:valname_ex] = get(tmp_d, a:valname_ex, {})
 	let tmp_d[a:valname_ex].__type        = a:type
 	let tmp_d[a:valname_ex].__default     = a:val
 
-	" ˆê”ÔÅ‰
+	" ä¸€ç•ªæœ€åˆ
 	let tmp_d.__order = get(tmp_d , '__order', [])
 
-	" –¢“o˜^‚È‚ç
+	" æœªç™»éŒ²ãªã‚‰
 	if match(tmp_d.__order, '^'.a:valname_ex.'$') < 0
 		call add(tmp_d.__order, a:valname_ex)
 		echom string(tmp_d.__order)
 	endif
 
-	" •Û‘¶
+	" ä¿å­˜
 	exe 'let '.dict_name.' = tmp_d'
 
-	" •Ï”‚ÌXV
+	" å¤‰æ•°ã®æ›´æ–°
 	if a:valname_ex =~ '^g:'
 		let tmp = unite_setting_ex#data#get(dict_name, a:valname_ex)
 		exe 'let '.a:valname_ex.' = tmp'
@@ -91,7 +91,7 @@ function! unite_setting_ex#data#get(dict_name, valname_ex) "{{{
 
 	let dict_name = s:get_dict_name(a:dict_name)
 
-	" ’l‚Ìæ“¾
+	" å€¤ã®å–å¾—
 	exe 'let tmp_d = '.dict_name
 
 	let type_ = tmp_d[a:valname_ex].__type
@@ -156,16 +156,16 @@ function! unite_setting_ex#data#load(...) "{{{
 
 	let load_d.__file  = file_
 
-	" Add ŒãAƒf[ƒ^‚¾‚¯“Ç‚İo‚µ‚½‚¢ê‡‚Ìˆ×
+	" Add å¾Œã€ãƒ‡ãƒ¼ã‚¿ã ã‘èª­ã¿å‡ºã—ãŸã„å ´åˆã®ç‚º
 	if len(tmp_d.__order)
 		let load_d.__order = tmp_d.__order
 	endif
 
 	call extend(tmp_d, load_d)
 
-	" š ADD ‚Ì“_‚Å‚às‚¤‚ªAƒtƒ@ƒCƒ‹‚Åæ“¾‚µ‚½’l‚ğ“ü‚ê‚é
+	" â˜… ADD ã®æ™‚ç‚¹ã§ã‚‚è¡Œã†ãŒã€ãƒ•ã‚¡ã‚¤ãƒ«ã§å–å¾—ã—ãŸå€¤ã‚’å…¥ã‚Œã‚‹
 	"
-	" •Ï”‚ÌC³‚ğ‚·‚é
+	" å¤‰æ•°ã®ä¿®æ­£ã‚’ã™ã‚‹
 	for valname in filter(copy(tmp_d.__order), 'v:val=~"g:"')
 		exe 'let '.valname." = unite_setting_ex#data#get(dict_name, valname)"
 	endfor

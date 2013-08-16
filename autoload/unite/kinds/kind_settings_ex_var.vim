@@ -12,7 +12,7 @@ let s:kind_settings_ex_var = {
 			\ 'parents': ['kind_settings_ex_common'],
 			\ }
 let s:kind_settings_ex_var.action_table.edit = {
-			\ 'description' : '�ݒ�ҏW',
+			\ 'description' : '設定編集',
 			\ 'is_quit'     : 0,
 			\ }"
 function! s:kind_settings_ex_var.action_table.edit.func(candidate) "{{{

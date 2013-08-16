@@ -6,27 +6,27 @@ function! s:delete(dict_name, valname_ex, delete_nums) "{{{
 	let delete_nums = copy(a:delete_nums)
 	call reverse(sort(delete_nums))
 
-	" ”Ô†‚Ìæ“¾
+	" ç•ªå·ã®å–å¾—
 	let datas = unite_setting_ex#dict(a:dict_name)[a:valname_ex].__default
 
-	" ‘I‘ğ”Ô†‚Ìíœ
+	" é¸æŠç•ªå·ã®å‰Šé™¤
 	let nums = datas.nums
 
-	" íœ ( ‘å‚«‚¢”š‚©‚çíœ ) 
+	" å‰Šé™¤ ( å¤§ãã„æ•°å­—ã‹ã‚‰å‰Šé™¤ ) 
 	for delete_num in delete_nums
-		" ”Ô†‚ÌXV
+		" ç•ªå·ã®æ›´æ–°
 		if exists('datas.items[delete_num]')
 			unlet datas.items[delete_num]
 		endif
 
-		" ”š‚ÌÄ’è‹`
+		" æ•°å­—ã®å†å®šç¾©
 		call filter(nums, "v:val != delete_num")
 		call map(nums, "v:val - (v:val > delete_num? 1: 0)")
 	endfor
 
 	let datas.nums = nums
 
-	" İ’è
+	" è¨­å®š
 	call unite_setting_ex#kind#set(a:dict_name, a:valname_ex, datas)
 
 endfunction
@@ -60,7 +60,7 @@ function! s:kind_settings_ex_list_select.action_table.a_toggles.func(candidates)
 	let nums = map(copy(candidates), "v:val.action__num")
 	let nums = filter(nums, '0 <= v:val && v:val < max')
 
-	" V‹K’Ç‰Á‚Ìê‡
+	" æ–°è¦è¿½åŠ ã®å ´åˆ
 	if candidates[0].action__new != ''
 		call add(tmps.items, candidates[0].action__new)
 	else
@@ -87,7 +87,7 @@ function! s:kind_settings_ex_list_select.action_table.a_toggle.func(candidates) 
 	let num_ = a:candidates.action__num
 	let num_ = ( 0 <= num_ && num_ < max ) ? num_ : -1 
 
-	" V‹K’Ç‰Á‚Ìê‡
+	" æ–°è¦è¿½åŠ ã®å ´åˆ
 	if a:candidates.action__new != ''
 		call add(tmps.items, a:candidates.action__new)
 	else
