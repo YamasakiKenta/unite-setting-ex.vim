@@ -14,7 +14,6 @@ let s:kind_settings_ex_bool = {
 			\ 'parents'        : ['kind_settings_ex_common'],
 			\ }
 let s:kind_settings_ex_bool.action_table.toggle = {
-			\ 'description'   : '設定の切替',
 			\ 'is_quit'       : 0,
 			\ }
 function! s:kind_settings_ex_bool.action_table.toggle.func(candidate)

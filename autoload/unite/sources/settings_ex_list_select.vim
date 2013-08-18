@@ -6,7 +6,6 @@ function! unite#sources#settings_ex_list_select#define()
 endfunction
 let s:settings_ex_list_select = {
 			\ 'name'        : 'settings_ex_list_select',
-			\ 'description' : '複数選択',
 			\ 'syntax'      : 'uniteSource__settings',
 			\ 'hooks'       : {},
 			\ }
