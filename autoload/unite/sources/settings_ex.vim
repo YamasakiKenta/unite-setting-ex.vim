@@ -21,7 +21,7 @@ endfunction
 function! s:get_source_word_sub(dict_name, valname_ex, str) "{{{
 	let tmp_d = unite_setting_ex#dict(a:dict_name)
 
-	return unite_setting_ex#util#printf('%40s - %s', 
+	return printf('%40s - %s', 
 				\ a:valname_ex,
 				\ a:str,
 				\ )
@@ -66,7 +66,7 @@ function! s:get_source_word(dict_name, valname_ex) "{{{
 		let rtn = '"'.a:valname_ex.'"'
 	endif
 
-	return unite_setting_ex#util#printf("%10s %s", type, rtn)
+	return printf("%10s %s", type, rtn)
 endfunction
 "}}}
 
